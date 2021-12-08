@@ -7,12 +7,8 @@
  */
 
 var enterEventCount = 0;
-
-// const gridContainer = document.querySelector(".grid");
-
-// gridContainer.addEventListener("mouseover", () => {
-//   gridContainer.style.outline = ;
-// });
+const colorBtn = document.querySelector("#btn-1");
+let running = false;
 
 var enterEventCount = 0;
 var leaveEventCount = 0;
@@ -21,7 +17,7 @@ const unorderedList = document.getElementById("unorderedList");
 
 gridContainer.addEventListener("mouseenter", (e) => {
   gridContainer.style.outline = "5px dotted orange";
-  //}'
+
   enterEventCount++;
   addListItem("This is mouseenter event " + enterEventCount + ".");
 });
@@ -86,7 +82,7 @@ gridCells.forEach((cell) => {
   });
 
   // Set/remove random background color on click
-  console.log(0.9);
+
   cell.addEventListener("click", () => {
     // if first statement is true (cell has background color) then make it blank, else give it some color
     if (cell.style.backgroundColor) {
@@ -97,24 +93,6 @@ gridCells.forEach((cell) => {
   });
 });
 
-/* const body = document.body;
-body.addEventListener("keypress", (evento) => {
-  if (evento.code === "KeyH") {
-    //body.style.backgroundColor === "";
-    body.style.backgroundColor = "";
-    
-  } else {
-    body.style.backgroundColor = "hsl(201, 34%, 13%)";
-  }
-});
- */
-
-/* if (evento.code === "KeyH") {
-    body.style.backgroundColor === ""
-      ? (body.style.backgroundColor = `#${randColor()}`)
-      : (body.style.backgroundColor = "");
-}
-}); */
 
 const body = document.body;
 body.addEventListener("keypress", (event) => {
@@ -126,5 +104,25 @@ body.addEventListener("keypress", (event) => {
     body.style.backgroundColor === ""
       ? (body.style.backgroundColor = "hsl(201, 34%, 13%)")
       : (body.style.backgroundColor = "");
+  }
+});
+
+function changer() {
+  if (running) {
+    gridCells.forEach((cell) => {
+      cell.style.backgroundColor = `#${randColor()}`;
+    });
+    setTimeout(changer, 500);
+  }
+}
+
+colorBtn.addEventListener("click", function () {
+  colorBtn.innerText = "STOP";
+  if (running) {
+    running = false;
+    colorBtn.innerText = "CHANGE ALL COLOR";
+  } else {
+    running = true;
+    changer();
   }
 });
